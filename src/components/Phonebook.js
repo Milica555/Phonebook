@@ -31,7 +31,8 @@ class Phonebook extends React.Component {
     submitHandle (event) {
         event.preventDefault();
         if (this.state.name !== "" && this.state.number !== "") {            
-            setToLocalStorage({name: this.state.name, number: this.state.number});
+            setToLocalStorage({name: this.state.name, number: this.state.number});            
+            this.setFields({name: "", number: ""})
             this.setPhoneBooks(getFromLocalStorage());
         }
     }    
@@ -53,38 +54,39 @@ class Phonebook extends React.Component {
     }   
 
     render() {
+        let removeContacts;
+        if (this.state.phonebooks.length != 0 ) {
+            removeContacts = 
+                <Container onSubmit={(e) => this.submitRemove(e)} style={{ width: 600 }}>  
+                    <Form> 
+                        <Button id="removeButton" variant="primary" type="submit">
+                            Remove Contact
+                        </Button>
+                    </Form>
+                </Container>;
+        }
         return (
             <>
-            <Container onSubmit={(e) => this.submitHandle(e)}>            
+            <Container onSubmit={(e) => this.submitHandle(e)} style={{width: 600 }}>            
                 <Form> 
-                    <Row className=" mb-3 align-items-center">
-                        <Form.Group as={Col}>
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                style={{ 
-                                    paddingLeft: 250,
-                                    width: 600,
-                                   }} 
-                                type="text"
-                                placeholder="Add Name"
-                                value={this.state.name}
-                                onChange={(e) => this.setNameInput(e.target.value)}
-                            />
-                        </Form.Group>
-                        <Form.Group as={Col}>
-                            <Form.Label>Phone Number</Form.Label>
-                            <Form.Control
-                              style={{ 
-                                paddingLeft: 250,
-                                width: 600,
-                            }} 
-                                type="number"
-                                placeholder="Add Number"
-                                value={this.state.number}
-                                onChange={(e) => this.setNumberInput(e.target.value)}
-                            />
-                        </Form.Group>
-                    </Row>
+                    <Form.Group as={Col}>
+                        <Form.Label style={{ marginTop: 20 }}>Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Add Name"
+                            value={this.state.name}
+                            onChange={(e) => this.setNameInput(e.target.value)}
+                        />
+                    </Form.Group>
+                    <Form.Group as={Col}>
+                        <Form.Label style={{ marginTop: 20 }}>Phone Number</Form.Label>
+                        <Form.Control
+                            type="number"
+                            placeholder="Add Number"
+                            value={this.state.number}
+                            onChange={(e) => this.setNumberInput(e.target.value)}
+                        />
+                    </Form.Group>
 
                     <Button id="addButton" style={{ marginTop: 20 }} variant="primary" type="submit">
                         Add Contact
@@ -93,35 +95,30 @@ class Phonebook extends React.Component {
             </Container>
 
             
-            
+            <Container style={{width: 600, marginTop: 40, }}>
             {              
                 this.state.phonebooks.map(function(phonebook, idx){
                     return (
-                        <ListGroup
+                       
+                        <ListGroup 
                             style={{ 
-                                marginTop: 20,
-                                paddingLeft: 370,
-                                width: 900,
+                                marginTop: 10,
                                 
                             }} 
                             className="mb-3 align-items-center"
                             onClick={() => this.setFields(phonebook)}
                             >
-                            <ListGroupItem 
+                            <ListGroupItem
                                 key={idx}
                                 > {phonebook.name}, {phonebook.number}
                             </ListGroupItem>
                         </ListGroup>
+                       
                     )
                 }, this)
             }   
-            <Container onSubmit={(e) => this.submitRemove(e)}>            
-                <Form> 
-                    <Button id="removeButton" style={{ marginTop: 10 }} variant="primary" type="submit">
-                        Remove Contact
-                    </Button>
-                </Form>
-            </Container>      
+            </Container>
+            { removeContacts }
             </>
         );
     }

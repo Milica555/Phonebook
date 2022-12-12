@@ -27,8 +27,11 @@ function pushIfDoesNotExist(phoneBookArr, phoneBookNewEntry) {
       });
       
       if (index === -1) {      
-        phoneBookArr.push(phoneBookNewEntry);      
-      }      
+        phoneBookArr.push(phoneBookNewEntry);
+              
+      } else {
+        alert('The name already exists in the phonebook')
+      }    
 }
 
 function removeIfExist(phoneBookArr, phoneBookEntryRemove) {    
