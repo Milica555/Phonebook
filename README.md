@@ -1,3 +1,14 @@
+Phonebook app
+
+Due to the limit of the size for sending the task, in order to be able to the same, dependecies should be installed first.
+In the project directory, you can run:
+
+`npm install`
+and then 
+`npm start`
+
+#react docs following
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
