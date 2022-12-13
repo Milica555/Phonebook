@@ -1,6 +1,6 @@
 Phonebook app
 
-Due to the limit of the size for sending the task, in order to be able to the same, dependecies should be installed first.
+Due to the limit of the size for sending the task, and in order to be able to the same, dependencies should be installed first.
 In the project directory, you can run:
 
 `npm install`
